@@ -37,7 +37,6 @@ use_xft yes
 xftfont Bitstream Vera Sans Mono:size=10
 gap_x 10
 gap_y 110
-minimum_size 5 5
 net_avg_samples 2
 double_buffer yes
 out_to_console no
@@ -55,6 +54,7 @@ show_graph_scale no
 show_graph_range no
 
 ### My additions
+minimum_size 330 5
 default_bar_size 0 6
 #default_graph_size 32 285
 
@@ -76,9 +76,9 @@ Core Temperatures:
 ${exec sensors | grep -iE "^Core\s+[0-9]+" | awk '{print "   "$2" "$3}'}
 CPU Utilisation:
 ${goto 25}CPU 1:${goto 100}${cpu cpu1}%${goto 140}${cpubar cpu1}
-${alignr}${cpugraph cpu1 32,270 d3d3d3 d3d3d3}
+${alignr}${cpugraph cpu1 32,313 d3d3d3 d3d3d3}
 ${goto 25}CPU 2:${goto 100}${cpu cpu2}%${goto 140}${cpubar cpu2}
-${alignr}${cpugraph cpu2 32,270 d3d3d3 d3d3d3}
+${alignr}${cpugraph cpu2 32,313 d3d3d3 d3d3d3}
 ${color white}Memory Utilisation $hr
 ${color}RAM:
 ${goto 25}Total:${goto 100}$memmax
@@ -88,13 +88,13 @@ ${goto 25}Total:${goto 100}$swapmax
 ${goto 25}Usage:${goto 100}$swap ($swapperc%)${goto 225}${swapbar}
 ${color white}File Systems $hr
 ${color}Name${goto 75}Free / Size
-root:${goto 75}${fs_free /} / ${fs_size /}${goto 225}${fs_bar /}
 boot:${goto 75}${fs_free /boot} / ${fs_size /boot}${goto 225}${fs_bar /boot}
+root:${goto 75}${fs_free /} / ${fs_size /}${goto 225}${fs_bar /}
 home:${goto 75}${fs_free /home} / ${fs_size /home}${goto 225}${fs_bar /home}
 data01:${goto 75}${fs_free /media/data01} / ${fs_size /media/data01}${goto 225}${fs_bar /media/data01}
 data02:${goto 75}${fs_free /media/data02} / ${fs_size /media/data02}${goto 225}${fs_bar /media/data02}
 ${color white}Networking $hr
-${color}Speed:${goto 75}Up: ${upspeed eth0}/s${goto 200}Down: ${downspeed eth0}/s
+${color}Speed:${goto 75}Up: ${upspeedf eth0} KiB/s${goto 200}Down: ${downspeedf eth0} KiB/s
 Data:${goto 75}Up: ${exec echo $(cat /proc/net/dev | grep -i eth0 | awk '{print $10}') / 1024 / 1024 | bc} MB${goto 200}Down: ${exec echo $(cat /proc/net/dev | grep -i eth0 | awk '{print $2}') / 1024 / 1024 | bc} MB
 ${color white}Processes $hr
 ${color}Processes:${goto 100}$processes${goto 140}Active: $running_processes
