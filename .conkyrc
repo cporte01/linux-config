@@ -41,10 +41,11 @@ net_avg_samples 2
 double_buffer yes
 out_to_console no
 own_window yes
-own_window_argb_visual yes
-own_window_argb_value 100
-own_window_transparent yes
 own_window_type normal
+own_window_transparent yes
+own_window_argb_visual yes
+own_window_color 000000
+own_window_argb_value 0
 own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
 stippled_borders 0
 update_interval 03.0
@@ -70,8 +71,14 @@ Version:${goto 120}${execi 65535 cat /etc/debian_version} (${execi 65535 cat /et
 Kernel:${goto 120}$kernel
 Uptime:${goto 120}$uptime
 Temperature:${goto 120}${acpitemp} C
+${color white}Hardware $hr
+${color}MB Vendor:${goto 120}${exec echo $(cat /sys/devices/virtual/dmi/id/board_vendor)}
+${color}MB Name:${goto 120}${exec echo $(cat /sys/devices/virtual/dmi/id/board_name)}
+${color}BIOS Vendor:${goto 120}${exec echo $(cat /sys/devices/virtual/dmi/id/bios_vendor)}
+${color}BIOS Date:${goto 120}${exec echo $(cat /sys/devices/virtual/dmi/id/bios_date)}
 ${color white}CPU $hr
-${color}Clock Speed:${goto 120}${freq} MHz
+${color}Type:${goto 120}${exec echo $(cat /proc/cpuinfo |grep -i 'model name' | awk '{print $4" "$5" "$6}' | uniq | sed -r 's/\([a-zA-Z0-9]+\)//ig')}
+Clock Speed:${goto 120}${freq} MHz
 Core Temperatures:
 ${exec sensors | grep -iE "^Core\s+[0-9]+" | awk '{print "   "$2" "$3}'}
 CPU Utilisation:
